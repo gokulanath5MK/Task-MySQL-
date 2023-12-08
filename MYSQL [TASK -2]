@@ -1,19 +1,92 @@
-mysql> show databases;
-+--------------------+
-| Database           |
-+--------------------+
-| employment         |
-| guvi_zen_class     |
-| information_schema |
-| mydb               |
-| mysql              |
-| newdata            |
-| performance_schema |
-| sakila             |
-| sys                |
-| world              |
-+--------------------+
-10 rows in set (0.04 sec)
+mysql> create database  guvi_zen_class;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use  guvi_zen_class;
+Database changed
+mysql> select database();
++----------------+
+| database()     |
++----------------+
+| guvi_zen_class |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> CREATE TABLE students ( student_id INT PRIMARY KEY AUTO_INCREMENT, first_name VARCHAR(50) NOT NULL, last_name VARCHAR(50) NOT NULL, email VARCHAR(100) UNIQUE NOT NULL );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE classes ( class_id INT PRIMARY KEY AUTO_INCREMENT, class_name VARCHAR(100) NOT NULL, instructor VARCHAR(100) NOT NULL, start_date DATE NOT NULL, end_date DATE NOT NULL );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE registrations ( registration_id INT PRIMARY KEY AUTO_INCREMENT, student_id INT, class_id INT, registration_date DATE NOT NULL, FOREIGN KEY (student_id) REFERENCES students(student_id), FOREIGN KEY (class_id) REFERENCES classes(class_id) );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc students;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| student_id | int          | NO   | PRI | NULL    | auto_increment |
+| first_name | varchar(50)  | NO   |     | NULL    |                |
+| last_name  | varchar(50)  | NO   |     | NULL    |                |
+| email      | varchar(100) | NO   | UNI | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> desc classes;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| class_id   | int          | NO   | PRI | NULL    | auto_increment |
+| class_name | varchar(100) | NO   |     | NULL    |                |
+| instructor | varchar(100) | NO   |     | NULL    |                |
+| start_date | date         | NO   |     | NULL    |                |
+| end_date   | date         | NO   |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> desc registrations;
++-------------------+------+------+-----+---------+----------------+
+| Field             | Type | Null | Key | Default | Extra          |
++-------------------+------+------+-----+---------+----------------+
+| registration_id   | int  | NO   | PRI | NULL    | auto_increment |
+| student_id        | int  | YES  | MUL | NULL    |                |
+| class_id          | int  | YES  | MUL | NULL    |                |
+| registration_date | date | NO   |     | NULL    |                |
++-------------------+------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO classes(class_id, class_name, instructor, start_date, end_date)
+    -> VALUES
+    -> (1, "Gokul", "Sathish", '2023-09-10', '2023-11-27'),
+    -> (2, "Ajay", "Sathish", '2023-09-10', '2023-11-27'),
+    -> (3, "Kumar", "Sathish", '2023-09-10', '2023-11-27'),
+    -> (4, "Kohli", "Sathish", '2023-09-10', '2023-11-27'),
+    -> (5, "Dhoni", "Sathish", '2023-09-10', '2023-11-27');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO students (student_id, first_name, last_name, email)
+    -> VALUES
+    -> (1, "Gokul", "Kumar", "gokul10@gmail.com"),
+    -> (2, "Ajay", "Kumar", "cholan10@gmail.com"),
+    -> (3, "Kumar", "Muthu", "kumar72@gmail.com"),
+    -> (4, "Kohli", "Virat", "james20@gmail.com"),
+    -> (5, "Dhoni", "MS", "dhoni30@gmail.com");
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO registrations(student_id, class_id, registration_date)
+    -> VALUES
+    -> (1, 1, '2023-09-10'),
+    -> (2, 2, '2023-09-11'),
+    -> (3, 3, '2023-09-12'),
+    -> (4, 4, '2023-09-13'),
+    -> (5, 5, '2023-09-14');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
 
 mysql> use guvi_zen_class;
 Database changed
@@ -42,31 +115,31 @@ mysql> select * from classes;
 |        1 | Gokul      | Sathish    | 2023-09-10 | 2023-11-27 |
 |        2 | Ajay       | Sathish    | 2023-09-10 | 2023-11-27 |
 |        3 | Kumar      | Sathish    | 2023-09-10 | 2023-11-27 |
-|        4 | james      | Sathish    | 2023-09-10 | 2023-11-27 |
+|        4 | Kohli      | Sathish    | 2023-09-10 | 2023-11-27 |
 |        5 | Dhoni      | Sathish    | 2023-09-10 | 2023-11-27 |
 +----------+------------+------------+------------+------------+
-5 rows in set (0.01 sec)
-
-mysql> select * from registrations;
-+-----------------+------------+----------+-------------------+
-| registration_id | student_id | class_id | registration_date |
-+-----------------+------------+----------+-------------------+
-|               1 |          1 |        1 | 2023-09-10        |
-|               2 |          2 |        2 | 2023-09-11        |
-|               3 |          3 |        3 | 2023-09-12        |
-|               4 |          4 |        4 | 2023-09-13        |
-|               5 |          5 |        5 | 2023-09-14        |
-+-----------------+------------+----------+-------------------+
 5 rows in set (0.00 sec)
 
 mysql> select * from students;
 +------------+------------+-----------+--------------------+
 | student_id | first_name | last_name | email              |
 +------------+------------+-----------+--------------------+
-|          1 | Gokul      | kumar     | gokul10@gmail.com  |
-|          2 | Ajay       | kumar     | cholan10@gmail.com |
+|          1 | Gokul      | Kumar     | gokul10@gmail.com  |
+|          2 | Ajay       | Kumar     | cholan10@gmail.com |
 |          3 | Kumar      | Muthu     | kumar72@gmail.com  |
-|          4 | james      | waltson   | james20@gmail.com  |
+|          4 | Kohli      | Virat     | james20@gmail.com  |
 |          5 | Dhoni      | MS        | dhoni30@gmail.com  |
 +------------+------------+-----------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from registrations;
++-----------------+------------+----------+-------------------+
+| registration_id | student_id | class_id | registration_date |
++-----------------+------------+----------+-------------------+
+|              11 |          1 |        1 | 2023-09-10        |
+|              12 |          2 |        2 | 2023-09-11        |
+|              13 |          3 |        3 | 2023-09-12        |
+|              14 |          4 |        4 | 2023-09-13        |
+|              15 |          5 |        5 | 2023-09-14        |
++-----------------+------------+----------+-------------------+
 5 rows in set (0.00 sec)
