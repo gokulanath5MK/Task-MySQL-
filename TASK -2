@@ -1,0 +1,72 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| employment         |
+| guvi_zen_class     |
+| information_schema |
+| mydb               |
+| mysql              |
+| newdata            |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+10 rows in set (0.04 sec)
+
+mysql> use guvi_zen_class;
+Database changed
+mysql> select database();
++----------------+
+| database()     |
++----------------+
+| guvi_zen_class |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> show tables;
++--------------------------+
+| Tables_in_guvi_zen_class |
++--------------------------+
+| classes                  |
+| registrations            |
+| students                 |
++--------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from classes;
++----------+------------+------------+------------+------------+
+| class_id | class_name | instructor | start_date | end_date   |
++----------+------------+------------+------------+------------+
+|        1 | Gokul      | Sathish    | 2023-09-10 | 2023-11-27 |
+|        2 | Ajay       | Sathish    | 2023-09-10 | 2023-11-27 |
+|        3 | Kumar      | Sathish    | 2023-09-10 | 2023-11-27 |
+|        4 | james      | Sathish    | 2023-09-10 | 2023-11-27 |
+|        5 | Dhoni      | Sathish    | 2023-09-10 | 2023-11-27 |
++----------+------------+------------+------------+------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from registrations;
++-----------------+------------+----------+-------------------+
+| registration_id | student_id | class_id | registration_date |
++-----------------+------------+----------+-------------------+
+|               1 |          1 |        1 | 2023-09-10        |
+|               2 |          2 |        2 | 2023-09-11        |
+|               3 |          3 |        3 | 2023-09-12        |
+|               4 |          4 |        4 | 2023-09-13        |
+|               5 |          5 |        5 | 2023-09-14        |
++-----------------+------------+----------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from students;
++------------+------------+-----------+--------------------+
+| student_id | first_name | last_name | email              |
++------------+------------+-----------+--------------------+
+|          1 | Gokul      | kumar     | gokul10@gmail.com  |
+|          2 | Ajay       | kumar     | cholan10@gmail.com |
+|          3 | Kumar      | Muthu     | kumar72@gmail.com  |
+|          4 | james      | waltson   | james20@gmail.com  |
+|          5 | Dhoni      | MS        | dhoni30@gmail.com  |
++------------+------------+-----------+--------------------+
+5 rows in set (0.00 sec)
